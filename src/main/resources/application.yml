@@ -1,1 +1,16 @@
-spring.application.name=rest-with-spring-boot-end-java-enrudio
+spring:
+  application:
+    name: rest-with-spring-boot-end-java-enrudio
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/rest_with_spring_boot_end_java_enrudio?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: orrid031835
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+    show-sql: false
+    open-in-view: false
