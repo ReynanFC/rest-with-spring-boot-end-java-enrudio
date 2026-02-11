@@ -3,19 +3,21 @@ package com.reynan.spring.rest_with_spring_boot_end_java_enrudio.services;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.exception.ResourceNotFoundException;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.model.Person;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.repository.PersonRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.logging.Logger;
+
 
 @Service
 public class PersonService {
 
+    private Logger logger = LoggerFactory.getLogger(PersonService.class);
+
     @Autowired
     private PersonRepository  personRepository;
-
-    private Logger logger = Logger.getLogger(PersonService.class.getName());
 
     public Person findById(Long id) {
         logger.info("Finding person with id: " + id);
