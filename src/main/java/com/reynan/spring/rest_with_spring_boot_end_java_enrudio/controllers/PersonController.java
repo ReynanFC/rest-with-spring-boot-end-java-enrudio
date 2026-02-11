@@ -1,6 +1,6 @@
 package com.reynan.spring.rest_with_spring_boot_end_java_enrudio.controllers;
 
-import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.model.Person;
+import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.PersonDTO;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,12 +17,12 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable("id") Long id) {
+    public PersonDTO findById(@PathVariable("id") Long id) {
         return personService.findById(id);
     }
 
     @GetMapping(value = "/find-all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll() {
+    public List<PersonDTO> findAll() {
         return personService.findAll();
     }
 
@@ -30,13 +30,13 @@ public class PersonController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person create(@RequestBody Person person) {
-        return personService.create(person);
+    public PersonDTO create(@RequestBody PersonDTO personDTO) {
+        return personService.create(personDTO);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person) {
-        return personService.update(person);
+    public PersonDTO update(@RequestBody PersonDTO personDTO) {
+        return personService.update(personDTO);
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

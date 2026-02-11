@@ -1,6 +1,10 @@
 package com.reynan.spring.rest_with_spring_boot_end_java_enrudio.services;
 
+import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.PersonDTO;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.exception.ResourceNotFoundException;
+import static com.reynan.spring.rest_with_spring_boot_end_java_enrudio.mapper.ObjectMapper.parseListObjects;
+import static com.reynan.spring.rest_with_spring_boot_end_java_enrudio.mapper.ObjectMapper.parseObject;
+
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.model.Person;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.repository.PersonRepository;
 import org.slf4j.Logger;
@@ -19,31 +23,35 @@ public class PersonService {
     @Autowired
     private PersonRepository  personRepository;
 
-    public Person findById(Long id) {
+    public PersonDTO findById(Long id) {
         logger.info("Finding person with id: " + id);
 
-        return personRepository.findById(id)
+        var person = personRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+
+        return parseObject(person, PersonDTO.class);
     }
 
-    public Person create(Person person) {
+    public PersonDTO create(PersonDTO personDTO) {
         logger.info("Creating one Person!");
 
-       return personRepository.save(person);
+        var entity = parseObject(personDTO, Person.class);
+
+       return parseObject(personRepository.save(entity), PersonDTO.class);
     }
 
-    public Person update(Person person) {
+    public PersonDTO update(PersonDTO personDTO) {
         logger.info("Updating a person");
 
-        Person entity = personRepository.findById(person.getId())
+        Person entity = personRepository.findById(personDTO.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 
-        entity.setFirstName(person.getFirstName());
-        entity.setLastName(person.getLastName());
-        entity.setAddress(person.getAddress());
-        entity.setGender(person.getGender());
+        entity.setFirstName(personDTO.getFirstName());
+        entity.setLastName(personDTO.getLastName());
+        entity.setAddress(personDTO.getAddress());
+        entity.setGender(personDTO.getGender());
 
-        return personRepository.save(entity);
+        return parseObject(personRepository.save(entity), PersonDTO.class);
     }
 
     public void delete(Long id) {
@@ -55,10 +63,9 @@ public class PersonService {
         personRepository.delete(entity);
     }
 
-    public List<Person> findAll() {
+    public List<PersonDTO> findAll() {
         logger.info("Finding all people");
 
-        return personRepository.findAll();
+        return parseListObjects(personRepository.findAll(), PersonDTO.class);
     }
-
 }
