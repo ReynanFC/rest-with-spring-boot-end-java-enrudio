@@ -3,7 +3,7 @@ package com.reynan.spring.rest_with_spring_boot_end_java_enrudio.unitetests.mapp
 import java.util.ArrayList;
 import java.util.List;
 
-import  com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.PersonDTO;
+import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.v1.PersonDTO;
 import  com.reynan.spring.rest_with_spring_boot_end_java_enrudio.model.Person;
 
 public class MockPerson {

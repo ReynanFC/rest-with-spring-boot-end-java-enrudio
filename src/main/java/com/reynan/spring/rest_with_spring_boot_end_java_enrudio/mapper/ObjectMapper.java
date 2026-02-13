@@ -23,7 +23,4 @@ public class ObjectMapper {
         return destinationsObjects;
     }
 
-    public <T extends Comparable<T>> void print(T object) {
-
-    }
 }

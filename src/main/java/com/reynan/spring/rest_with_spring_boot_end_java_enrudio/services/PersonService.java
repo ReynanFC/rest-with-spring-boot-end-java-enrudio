@@ -1,10 +1,12 @@
 package com.reynan.spring.rest_with_spring_boot_end_java_enrudio.services;
 
-import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.PersonDTO;
+import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.v1.PersonDTO;
+import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.v2.PersonDTOV2;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.exception.ResourceNotFoundException;
 import static com.reynan.spring.rest_with_spring_boot_end_java_enrudio.mapper.ObjectMapper.parseListObjects;
 import static com.reynan.spring.rest_with_spring_boot_end_java_enrudio.mapper.ObjectMapper.parseObject;
 
+import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.mapper.custom.PersonMapper;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.model.Person;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.repository.PersonRepository;
 import org.slf4j.Logger;
@@ -23,6 +25,9 @@ public class PersonService {
     @Autowired
     private PersonRepository  personRepository;
 
+    @Autowired
+    private PersonMapper converter;
+
     public PersonDTO findById(Long id) {
         logger.info("Finding person with id: " + id);
 
@@ -34,10 +39,17 @@ public class PersonService {
 
     public PersonDTO create(PersonDTO personDTO) {
         logger.info("Creating one Person!");
-
         var entity = parseObject(personDTO, Person.class);
 
        return parseObject(personRepository.save(entity), PersonDTO.class);
+    }
+
+    public PersonDTOV2 createV2(PersonDTOV2 personDTO) {
+        logger.info("Creating one Person V2!");
+
+        var entity = converter.convertDTOToEntity(personDTO);
+
+        return converter.convertEntityToDTO(personRepository.save(entity));
     }
 
     public PersonDTO update(PersonDTO personDTO) {

@@ -1,6 +1,7 @@
 package com.reynan.spring.rest_with_spring_boot_end_java_enrudio.controllers;
 
-import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.PersonDTO;
+import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.v1.PersonDTO;
+import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.v2.PersonDTOV2;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -32,6 +33,14 @@ public class PersonController {
     )
     public PersonDTO create(@RequestBody PersonDTO personDTO) {
         return personService.create(personDTO);
+    }
+
+    @PostMapping(value = "/v2",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public PersonDTOV2 create(@RequestBody PersonDTOV2 personDTO) {
+        return personService.createV2(personDTO);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

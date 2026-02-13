@@ -1,6 +1,4 @@
-package com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto;
-
-import jakarta.persistence.*;
+package com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.v1;
 
 import java.io.Serializable;
 import java.util.Objects;
