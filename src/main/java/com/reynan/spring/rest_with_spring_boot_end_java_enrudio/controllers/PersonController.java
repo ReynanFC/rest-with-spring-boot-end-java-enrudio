@@ -51,7 +51,7 @@ public class PersonController {
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
          personService.delete(id);
-         return ResponseEntity.notFound().build();
+         return ResponseEntity.noContent().build();
     }
 
 }
