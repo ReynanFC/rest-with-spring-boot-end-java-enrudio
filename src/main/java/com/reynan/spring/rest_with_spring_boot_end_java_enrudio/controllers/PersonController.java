@@ -1,13 +1,13 @@
 package com.reynan.spring.rest_with_spring_boot_end_java_enrudio.controllers;
 
-import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.v1.PersonDTO;
-import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.v2.PersonDTOV2;
+import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.PersonDTO;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -19,7 +19,14 @@ public class PersonController {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonDTO findById(@PathVariable("id") Long id) {
-        return personService.findById(id);
+
+        var person = personService.findById(id);
+        person.setBirthDay(LocalDate.now());
+        person.setGender("Male");
+//        person.setPhoneNumber("+55 (32) 94002-8922");
+        person.setPhoneNumber("");
+
+        return person;
     }
 
     @GetMapping(value = "/find-all", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,14 +40,6 @@ public class PersonController {
     )
     public PersonDTO create(@RequestBody PersonDTO personDTO) {
         return personService.create(personDTO);
-    }
-
-    @PostMapping(value = "/v2",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public PersonDTOV2 create(@RequestBody PersonDTOV2 personDTO) {
-        return personService.createV2(personDTO);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.v1.PersonDTO;
+import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.data.dto.PersonDTO;
 import com.reynan.spring.rest_with_spring_boot_end_java_enrudio.unitetests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
