@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -17,37 +16,56 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}",
+            produces = {
+             MediaType.APPLICATION_JSON_VALUE,
+             MediaType.APPLICATION_XML_VALUE,
+             MediaType.APPLICATION_YAML_VALUE
+            })
     public PersonDTO findById(@PathVariable("id") Long id) {
 
         var person = personService.findById(id);
-        person.setBirthDay(LocalDate.now());
-        person.setGender("Male");
-//        person.setPhoneNumber("+55 (32) 94002-8922");
-        person.setPhoneNumber("");
-
         return person;
     }
 
-    @GetMapping(value = "/find-all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/find-all",
+            produces =
+            {MediaType.APPLICATION_JSON_VALUE,
+             MediaType.APPLICATION_XML_VALUE,
+             MediaType.APPLICATION_YAML_VALUE})
     public List<PersonDTO> findAll() {
+
         return personService.findAll();
     }
 
     @PostMapping(
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            consumes =
+                {MediaType.APPLICATION_JSON_VALUE,
+                 MediaType.APPLICATION_XML_VALUE,
+                 MediaType.APPLICATION_YAML_VALUE},
+            produces =
+                {MediaType.APPLICATION_JSON_VALUE,
+                 MediaType.APPLICATION_XML_VALUE,
+                 MediaType.APPLICATION_YAML_VALUE}
     )
     public PersonDTO create(@RequestBody PersonDTO personDTO) {
         return personService.create(personDTO);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(
+            consumes =
+            {MediaType.APPLICATION_JSON_VALUE,
+             MediaType.APPLICATION_XML_VALUE,
+             MediaType.APPLICATION_YAML_VALUE})
     public PersonDTO update(@RequestBody PersonDTO personDTO) {
         return personService.update(personDTO);
     }
 
-    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}",
+            produces =
+            {MediaType.APPLICATION_JSON_VALUE,
+             MediaType.APPLICATION_XML_VALUE,
+             MediaType.APPLICATION_YAML_VALUE})
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
          personService.delete(id);
          return ResponseEntity.noContent().build();
